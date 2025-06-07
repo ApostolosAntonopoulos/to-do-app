@@ -1,0 +1,275 @@
+body {
+    font-family: 'Cinzel', 'Garamond', serif;
+    background: 
+        linear-gradient(135deg, rgba(10,10,19,0.92) 0%, rgba(26,26,42,0.92) 100%),
+        url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0 24px;
+    min-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.elden-header {
+    text-align: center;
+    margin-top: 48px;
+    margin-bottom: 0;
+}
+
+.elden-header h1 {
+    color: #e6c97b;
+    font-size: 2.7em;
+    margin-bottom: 0.2em;
+    letter-spacing: 2px;
+    text-shadow: 0 0 16px #e6c97b, 0 0 32px #3a2e13;
+    font-family: 'Cinzel', 'Garamond', serif;
+}
+
+.subtitle {
+    color: #b7a46f;
+    font-size: 1.15em;
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-style: italic;
+    text-shadow: 0 0 8px #3a2e13;
+}
+
+#todo-container {
+    max-width: 900px;
+    width: 100%;
+    margin: 32px auto 0 auto;
+    padding: 32px 0 24px 0;
+    background: rgba(20, 18, 12, 0.98);
+    border-radius: 24px;
+    box-shadow: 0 8px 32px #e6c97b33, 0 0 0 2px #1a1a2a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #e6c97b;
+}
+
+#add-todo-form {
+    display: flex;
+    width: 95%;
+    margin-bottom: 32px;
+    justify-content: center;
+    gap: 12px;
+}
+
+#add-todo-form input[type="text"] {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #1a1a2a;
+    font-size: 1.1em;
+    color: #e6c97b;
+    box-shadow: 0 2px 8px #e6c97b22;
+    outline: none;
+    transition: background 0.2s, box-shadow 0.2s;
+    border: 2px solid #1a1a2a;
+    font-family: 'Cinzel', 'Garamond', serif;
+}
+
+#add-todo-form input[type="text"]:focus {
+    background: #0a0a13;
+    box-shadow: 0 0 8px #e6c97b;
+    border: 2px solid #e6c97b;
+}
+
+#add-todo-form button {
+    background: #3a2e13;
+    color: #e6c97b;
+    border: none;
+    border-radius: 8px;
+    padding: 0 18px;
+    font-size: 1.5em;
+    cursor: pointer;
+    box-shadow: 0 2px 8px #e6c97b44;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    text-shadow: 0 0 4px #e6c97b;
+    font-family: 'Cinzel', 'Garamond', serif;
+}
+
+#add-todo-form button:hover {
+    background: #e6c97b;
+    color: #3a2e13;
+    transform: scale(1.08);
+    box-shadow: 0 0 16px #e6c97b;
+}
+
+#todo-list {
+    width: 95%;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+#todo-list li {
+    display: flex;
+    align-items: center;
+    padding: 14px 18px;
+    margin-bottom: 18px;
+    background: #18181c;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px #e6c97b33;
+    font-size: 1.13em;
+    color: #e6c97b;
+    border-bottom: none;
+    transition: background 0.2s, box-shadow 0.2s;
+    border: 2px solid #1a1a2a;
+    position: relative;
+    font-family: 'Cinzel', 'Garamond', serif;
+}
+
+#todo-list li.completed {
+    background: #23231a;
+    opacity: 0.85;
+    border: 2px solid #e6c97b;
+    box-shadow: 0 0 16px #e6c97b77;
+}
+
+#todo-list li:last-child {
+    margin-bottom: 0;
+}
+
+.todo-icon {
+    margin-right: 14px;
+    font-size: 1.3em;
+    user-select: none;
+    filter: drop-shadow(0 0 6px #e6c97b);
+}
+
+#todo-list span {
+    flex: 1;
+    margin-right: 12px;
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-family: 'Cinzel', 'Garamond', serif;
+    font-size: 1.08em;
+}
+
+#todo-list li.completed span {
+    text-decoration: line-through;
+    color: #b7a46f;
+    text-shadow: 0 0 8px #e6c97b;
+}
+
+#todo-list select {
+    margin-right: 12px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 2px solid #e6c97b;
+    background: #0a0a13;
+    color: #e6c97b;
+    font-size: 1em;
+    outline: none;
+    transition: border 0.2s, box-shadow 0.2s;
+    font-family: 'Cinzel', 'Garamond', serif;
+    box-shadow: 0 0 6px #e6c97b33;
+}
+
+#todo-list select:focus {
+    border: 2px solid #b7a46f;
+    box-shadow: 0 0 8px #b7a46f;
+}
+
+#todo-list button {
+    margin-left: 0;
+    background: #3a2e13;
+    color: #e6c97b;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 4px #e6c97b55;
+    text-shadow: 0 0 4px #e6c97b;
+    font-family: 'Cinzel', 'Garamond', serif;
+}
+
+#todo-list button:hover {
+    background: #e6c97b;
+    color: #3a2e13;
+    transform: scale(1.1);
+    box-shadow: 0 0 12px #e6c97b;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 900px;
+    margin: 32px auto 0 auto;
+    padding-bottom: 32px;
+}
+
+.image-row {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin: 32px 0 0 0;
+}
+
+.image-placeholder {
+    background: rgba(30, 28, 20, 0.7);
+    border: 2px dashed #e6c97b;
+    border-radius: 16px;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background: none;
+}
+
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    max-width: 1000px;
+    margin: 40px auto 0 auto;
+    padding-bottom: 40px;
+    width: 100%;
+    justify-items: center; /* Ensures grid items are centered in their columns */
+}
+
+
+
+.image-placeholder {
+    width: 160px;
+    height: 160px;
+    border-radius: 18px;
+    border: 2px dashed #e6c97b;
+    background: rgba(30, 28, 20, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
