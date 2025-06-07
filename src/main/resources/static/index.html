@@ -122,14 +122,50 @@
     </script>
 
     <div class="image-grid">
-        <div class="image-placeholder"><img src="elden_ring_nightreign_bg.jpg" alt="Image 1"></div>
-        <div class="image-placeholder"><img src="elden_ring_nightreign_bg.jpg" alt="Image 2"></div>
-        <div class="image-placeholder"><img src="elden_ring_nightreign_bg.jpg" alt="Image 3"></div>
-        <div class="image-placeholder"><img src="elden_ring_nightreign_bg.jpg" alt="Image 4"></div>
-        <div class="image-placeholder"><img src="elden_ring_nightreign_bg.jpg" alt="Image 5"></div>
-        <div class="image-placeholder"><img src="elden_ring_nightreign_bg.jpg" alt="Image 6"></div>
+        <div class="image-placeholder">
+            <img class="preview-img" src="preview_icon.png" alt="Preview" />
+            <img src="elden_ring_nightreign_bg.jpg" alt="Image 1">
+            <div class="eliminated-overlay">Eliminated</div>
+        </div>
+        <div class="image-placeholder">
+            <img class="preview-img" src="preview_icon.png" alt="Preview" />
+            <img src="elden_ring_nightreign_bg.jpg" alt="Image 2">
+            <div class="eliminated-overlay">Eliminated</div>
+        </div>
+        <div class="image-placeholder">
+            <img class="preview-img" src="preview_icon.png" alt="Preview" />
+            <img src="elden_ring_nightreign_bg.jpg" alt="Image 3">
+            <div class="eliminated-overlay">Eliminated</div>
+        </div>
+        <div class="image-placeholder">
+            <img class="preview-img" src="preview_icon.png" alt="Preview" />
+            <img src="elden_ring_nightreign_bg.jpg" alt="Image 4">
+            <div class="eliminated-overlay">Eliminated</div>
+        </div>
+        <div class="image-placeholder">
+            <img class="preview-img" src="preview_icon.png" alt="Preview" />
+            <img src="elden_ring_nightreign_bg.jpg" alt="Image 5">
+            <div class="eliminated-overlay">Eliminated</div>
+        </div>
+        <div class="image-placeholder">
+            <img class="preview-img" src="preview_icon.png" alt="Preview" />
+            <img src="elden_ring_nightreign_bg.jpg" alt="Image 6">
+            <div class="eliminated-overlay">Eliminated</div>
+        </div>
     </div>
+    <script>
+        // Toggle eliminated state on div or overlay, revert on second press
+        document.querySelectorAll('.image-placeholder').forEach(placeholder => {
+            placeholder.addEventListener('click', function(e) {
+                // Only toggle if clicking the placeholder or its overlay
+                if (
+                    e.target === this ||
+                    (e.target.classList && e.target.classList.contains('eliminated-overlay'))
+                ) {
+                    this.classList.toggle('eliminated');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
-
-
