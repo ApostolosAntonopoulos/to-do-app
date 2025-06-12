@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
     <title>Nightreign Quest Log</title>
-    <!-- 
+    <!--
       To generate a suitable background, use a prompt like:
       "A dark fantasy landscape inspired by Elden Ring, with a mystical moon, ancient ruins, and ethereal night lighting, in the style of Nightreign, ultra high resolution, digital art"
       Save the image as 'elden_ring_nightreign_bg.jpg' in the static directory.
@@ -120,52 +120,121 @@
 
         fetchTodos();
     </script>
-
-    <div class="image-grid">
-        <div class="image-placeholder">
-            <img class="preview-img" src="preview_icon.png" alt="Preview" />
-            <img src="elden_ring_nightreign_bg.jpg" alt="Image 1">
-            <div class="eliminated-overlay">Eliminated</div>
-        </div>
-        <div class="image-placeholder">
-            <img class="preview-img" src="preview_icon.png" alt="Preview" />
-            <img src="elden_ring_nightreign_bg.jpg" alt="Image 2">
-            <div class="eliminated-overlay">Eliminated</div>
-        </div>
-        <div class="image-placeholder">
-            <img class="preview-img" src="preview_icon.png" alt="Preview" />
-            <img src="elden_ring_nightreign_bg.jpg" alt="Image 3">
-            <div class="eliminated-overlay">Eliminated</div>
-        </div>
-        <div class="image-placeholder">
-            <img class="preview-img" src="preview_icon.png" alt="Preview" />
-            <img src="elden_ring_nightreign_bg.jpg" alt="Image 4">
-            <div class="eliminated-overlay">Eliminated</div>
-        </div>
-        <div class="image-placeholder">
-            <img class="preview-img" src="preview_icon.png" alt="Preview" />
-            <img src="elden_ring_nightreign_bg.jpg" alt="Image 5">
-            <div class="eliminated-overlay">Eliminated</div>
-        </div>
-        <div class="image-placeholder">
-            <img class="preview-img" src="preview_icon.png" alt="Preview" />
-            <img src="elden_ring_nightreign_bg.jpg" alt="Image 6">
-            <div class="eliminated-overlay">Eliminated</div>
+   
+    <!-- New grid section below the todo container -->
+    <div class="simple-grid-container">
+        <div class="simple-grid">
+            <div class="simple-grid-item" 
+                data-title="Tricephalos"
+                data-description="A cerberus that wields a chained blade and can split into three separate wolves.
+                Deals Fire Fire damage and is vulnerable to Holy damage."
+                data-weakness="Fire"
+                data-best-weapons='["Sword of Night", "Blazing Axe", "Moonlight Greatsword", "Sacred Spear"]'>
+                <img src="wolfboss.jpg" alt="First" />
+                <span class="simple-grid-text">First</span>
+            </div>
+            <div class="simple-grid-item" 
+                data-title="Second" 
+                data-description="Description for the second boss."
+                data-weakness="Lightning"
+                data-best-weapons='["Storm Blade", "Thunder Hammer", "Lightning Bow", "Bolt Dagger"]'>
+                <img src="boss1.png" alt="Second" />
+                <span class="simple-grid-text">Second</span>
+            </div>
+            <div class="simple-grid-item" 
+                data-title="Third" 
+                data-description="Description for the third boss."
+                data-weakness="Magic"
+                data-best-weapons='["Sorcerer΄s Staff", "Arcane Blade", "Mystic Wand", "Enchanted Scythe"]'>
+                <img src="boss1.png" alt="Third" />
+                <span class="simple-grid-text">Third</span>
+            </div>
+            <div class="simple-grid-item" 
+                data-title="Fourth" 
+                data-description="Description for the fourth boss."
+                data-weakness="Holy"
+                data-best-weapons='["Sacred Sword", "Blessed Mace", "Holy Lance", "Radiant Bow"]'>
+                <img src="boss1.png" alt="Fourth" />
+                <span class="simple-grid-text">First</span>
+            </div>
+            <div class="simple-grid-item" 
+                data-title="Fifth" 
+                data-description="Description for the fifth boss."
+                data-weakness="Poison"
+                data-best-weapons='["Venom Blade", "Toxic Whip", "Poison Dagger", "Corrosive Axe"]'>
+                <img src="boss1.png" alt="Fifth" />
+                <span class="simple-grid-text">Second</span>
+            </div>
+            <div class="simple-grid-item" 
+                data-title="Sixth" 
+                data-description="Description for the sixth boss."
+                data-weakness="Frost"
+                data-best-weapons='["Frostbrand", "Glacial Pike", "Ice Bow", "Chill Scythe"]'>
+                <img src="boss1.png" alt="Sixth" />
+                <span class="simple-grid-text">Third</span>
+            </div>
         </div>
     </div>
+
+    <!-- Modal for displaying selected image and details -->
+    <div id="modal-overlay" class="modal-overlay" style="display:none;">
+        <div class="modal-content">
+            <span id="modal-close" class="modal-close">&times;</span>
+            <img id="modal-img" src="" alt="" />
+            <div class="modal-title" id="modal-title"></div>
+            <div class="modal-weakness" id="modal-weakness"></div>
+            <div class="modal-description" id="modal-description"></div>
+            <div class="modal-best-weapons" id="modal-best-weapons"></div>
+        </div>
+    </div>
+
     <script>
-        // Toggle eliminated state on div or overlay, revert on second press
-        document.querySelectorAll('.image-placeholder').forEach(placeholder => {
-            placeholder.addEventListener('click', function(e) {
-                // Only toggle if clicking the placeholder or its overlay
-                if (
-                    e.target === this ||
-                    (e.target.classList && e.target.classList.contains('eliminated-overlay'))
-                ) {
-                    this.classList.toggle('eliminated');
-                }
-            });
+    // Modal logic for grid items
+    document.querySelectorAll('.simple-grid-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const img = this.querySelector('img');
+            const title = this.getAttribute('data-title');
+            const description = this.getAttribute('data-description');
+            const weakness = this.getAttribute('data-weakness');
+            const bestWeapons = this.getAttribute('data-best-weapons');
+            document.getElementById('modal-img').src = img.src;
+            document.getElementById('modal-img').alt = img.alt;
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-weakness').innerHTML = 
+                `<span class="modal-label">Weakness:</span> ${weakness || "Unknown"}`;
+            document.getElementById('modal-description').innerHTML = description;
+
+            // Render best weapons as a grid of 4 items
+            let weaponsHtml = '';
+            try {
+                const weapons = JSON.parse(bestWeapons);
+                weaponsHtml = `<div class="modal-label">Best Weapons:</div>
+                    <div class="modal-best-weapons-grid">
+                        ${weapons.map(w => `<div class="modal-weapon-item">${w}</div>`).join('')}
+                    </div>`;
+            } catch {
+                weaponsHtml = '';
+            }
+            document.getElementById('modal-best-weapons').innerHTML = weaponsHtml;
+
+            document.getElementById('modal-overlay').style.display = 'flex';
         });
+    });
+
+    document.getElementById('modal-close').onclick = function() {
+        document.getElementById('modal-overlay').style.display = 'none';
+    };
+
+    // Optional: Close modal when clicking outside content
+    document.getElementById('modal-overlay').onclick = function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+        }
+    };
     </script>
+
+    <footer class="elden-footer">
+        <p>&copy; 2025 Nightreign Quest Log &mdash; Inspired by Elden Ring: Nightreign</p>
+    </footer>
 </body>
 </html>

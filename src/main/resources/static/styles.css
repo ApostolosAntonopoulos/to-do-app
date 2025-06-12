@@ -205,115 +205,212 @@ body {
     box-shadow: 0 0 12px #e6c97b;
 }
 
-.image-grid {
+.image-card-grid-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 32px auto 0 auto;
+}
+
+.explore-title {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #e6c97b;
+    margin-bottom: 32px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-shadow: 0 0 12px #3a2e13;
+    font-family: 'Cinzel', 'Garamond', serif;
+}
+
+.simple-grid-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 32px auto 0 auto;
+    overflow-x: visible; /* Allow horizontal scroll if needed */
+}
+
+.simple-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
-    max-width: 900px;
-    margin: 32px auto 0 auto;
-    padding-bottom: 32px;
+    width: 100%;
+    min-width: 900px; /* Ensures 3 columns fit even on smaller screens */
 }
 
-.image-row {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    margin: 32px 0 0 0;
-}
-
-.image-placeholder {
-    background: rgba(30, 28, 20, 0.7);
-    border: 2px dashed #e6c97b;
-    border-radius: 16px;
-    width: 120px;
-    height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+.simple-grid-item {
     position: relative;
-    cursor: pointer;
-}
-
-.eliminated-overlay {
-    display: none;
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(30, 0, 0, 0.7);
-    color: #e74c3c;
-    font-size: 2em;
-    font-family: 'Cinzel', serif;
-    font-weight: bold;
-    letter-spacing: 2px;
-    text-align: center;
+    width: 100%;
+    min-width: 250px; /* Ensures each item has a minimum width */
+    height: 320px; /* Fixed height for consistent aspect ratio */
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px #e6c97b33;
+    display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0.92;
-    z-index: 2;
-    pointer-events: auto; /* Allow clicking the overlay */
-    text-shadow: 0 0 12px #000, 0 0 24px #e6c97b;
+    background: #23231a;
+    border: 2px solid #e6c97b;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.2s, filter 0.2s;
 }
 
-.image-placeholder.eliminated .eliminated-overlay {
-    display: flex;
+.simple-grid-item:hover {
+    box-shadow: 0 4px 24px #e6c97b99, 0 0 0 4px #e6c97b55;
+    filter: brightness(1.08);
+    transform: translateY(-6px) scale(1.03);
 }
 
-.image-placeholder.eliminated img {
-    filter: grayscale(1) blur(1.5px) brightness(0.6);
-    opacity: 0.7;
-}
-
-.preview-img {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    width: 60%;
-    height: 60%;
-    margin: auto;
-    object-fit: contain;
-    opacity: 0;
-    z-index: 1;
-    pointer-events: none;
-    transition: opacity 0.3s;
-}
-
-.image-placeholder.eliminated .preview-img {
-    opacity: 1;
-}
-
-.image-placeholder img:not(.preview-img) {
+.simple-grid-item img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     display: block;
-    background: none;
-    position: relative;
-    z-index: 2;
+    border-radius: 16px;
+    filter: brightness(0.7);
 }
 
-
-.image-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-    max-width: 1000px;
-    margin: 40px auto 0 auto;
-    padding-bottom: 40px;
-    width: 100%;
-    justify-items: center; /* Ensures grid items are centered in their columns */
+.simple-grid-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #e6c97b;
+    font-size: 1.5em;
+    font-family: 'Cinzel', 'Garamond', serif;
+    text-shadow: 0 0 12px #23231a, 0 0 8px #e6c97b;
+    pointer-events: none;
+    text-align: center;
+    width: 90%;
 }
 
-
-
-.image-placeholder {
-    width: 160px;
-    height: 160px;
-    border-radius: 18px;
-    border: 2px dashed #e6c97b;
-    background: rgba(30, 28, 20, 0.7);
+/* Modal styles for grid item details */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(20, 18, 12, 0.92);
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #18181c;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px #e6c97b55;
+    padding: 32px 36px 28px 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 420px;
+    width: 90vw;
     position: relative;
+    border: 2px solid #e6c97b;
+}
+
+.modal-close {
+    position: absolute;
+    top: 16px;
+    right: 22px;
+    font-size: 2em;
+    color: #e6c97b;
     cursor: pointer;
+    font-weight: bold;
+    text-shadow: 0 0 8px #3a2e13;
+    z-index: 10;
+}
+
+.modal-content img {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    border-radius: 14px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 12px #e6c97b33;
+    display: block;
+}
+
+.modal-title {
+    color: #e6c97b;
+    font-size: 1.6em;
+    font-family: 'Cinzel', 'Garamond', serif;
+    margin-bottom: 10px;
+    text-align: center;
+    text-shadow: 0 0 8px #3a2e13;
+}
+
+.modal-description {
+    color: #b7a46f;
+    font-size: 1.1em;
+    font-family: 'Garamond', serif;
+    text-align: center;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.inline-icon {
+    width: 2px;
+    height: 2px;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+.modal-weakness {
+    color: #ffb347;
+    font-size: 1.15em;
+    font-family: 'Cinzel', 'Garamond', serif;
+    margin-bottom: 10px;
+    text-align: center;
+    text-shadow: 0 0 8px #3a2e13;
+}
+
+.modal-label {
+    font-weight: bold;
+    color: #e6c97b;
+    margin-right: 6px;
+    font-family: 'Cinzel', 'Garamond', serif;
+    font-size: 1.08em;
+}
+
+.modal-best-weapons {
+    width: 100%;
+    margin-top: 16px;
+    margin-bottom: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-best-weapons-grid {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+    justify-content: center;
+    width: 100%;
+}
+
+.modal-weapon-item {
+    background: #23231a;
+    color: #e6c97b;
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-family: 'Cinzel', 'Garamond', serif;
+    font-size: 1em;
+    box-shadow: 0 2px 8px #e6c97b33;
+    border: 1.5px solid #e6c97b;
+    text-align: center;
+    min-width: 80px;
+}
+
+.elden-footer {
+    width: 100%;
+    text-align: center;
+    padding: 24px 0 12px 0;
+    color: #b7a46f;
+    font-size: 1em;
+    font-family: 'Cinzel', 'Garamond', serif;
+    letter-spacing: 1px;
+    background: none;
+    margin-top: 48px;
+    text-shadow: 0 0 8px #23231a;
 }
