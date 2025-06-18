@@ -129,7 +129,8 @@
                 data-description="A cerberus that wields a chained blade and can split into three separate wolves.
                 Deals Fire Fire damage and is vulnerable to Holy damage."
                 data-weakness="Holy"
-                data-best-weapons='["Sword of Night", "Blazing Axe", "Moonlight Greatsword", "Sacred Spear"]'>
+                data-best-weapons='["Sword of Night", "Blazing Axe", "Moonlight Greatsword", "Sacred Spear"]'
+                data-best-combo='[{"img":"","name":""},{"img":"Heroes/WYLDER.png","name":"WYLDER"},{"img":"Heroes/IRONEYE.png","name":"IRONEYE"}]'>
                 <img src="NightLords/wolfboss.jpg" alt="First" />
                 <span class="simple-grid-text">Gladius, Beast of Night</span>
             </div>
@@ -137,7 +138,8 @@
                 data-title="Adel, Baron of Night"
                 data-description="A monstrous dragon boss with a horizontal jaw and gravity powers. Deals Lightning damage and is vulnerable to Poison."
                 data-weakness="Poison"
-                data-best-weapons='["Storm Blade", "Thunder Hammer", "Lightning Bow", "Bolt Dagger"]'>
+                data-best-weapons='["Storm Blade", "Thunder Hammer", "Lightning Bow", "Bolt Dagger"]'
+                 data-best-combo='[{"img":"","name":""},{"img":"","name":""},{"img":"","name":""}]'>
                 <img src="NightLords/GappedJaw.png" alt="Second" />
                 <span class="simple-grid-text">Adel, Baron of Night</span>
             </div>
@@ -146,7 +148,8 @@
                 data-description="A duo comprised of a great white moth and a mole cricket-like insect.
                  Deals Magic Magic damage, inflicts Poison, and is vulnerable to Fire damage."
                 data-weakness="Fire"
-                data-best-weapons='["Sorcerer΄s Staff", "Arcane Blade", "Mystic Wand", "Enchanted Scythe"]'>
+                data-best-weapons='["Sorcerer΄s Staff", "Arcane Blade", "Mystic Wand", "Enchanted Scythe"]'
+                data-best-combo='[{"img":"","name":""},{"img":"","name":""},{"img":"","name":""}]'>
                 <img src="NightLords/SentinentPestDuo.png" alt="Third" />
                 <span class="simple-grid-text">Gnoster, Wisdom of Night</span>
             </div>
@@ -154,7 +157,8 @@
                 data-title="Maris, Fathom of Night"
                 data-description="A Nightlord that resembles the Elden Beast. Inflicts Sleep and is vulnerable to Lightning damage."
                 data-weakness="Lightning"
-                data-best-weapons='["Sacred Sword", "Blessed Mace", "Holy Lance", "Radiant Bow"]'>
+                data-best-weapons='["Sacred Sword", "Blessed Mace", "Holy Lance", "Radiant Bow"]'
+                 data-best-combo='[{"img":"","name":""},{"img":"","name":""},{"img":"","name":""}]'>
                 <img src="NightLords/waterboss.jpg" alt="Fourth" />
                 <span class="simple-grid-text">Maris, Fathom of Night</span>
             </div>
@@ -163,7 +167,8 @@
                 data-description="A humanoid goat-man that utilizies both Frenzied Flame and Erdtree incantations.
                  Deals Holy Holy damage and inflicts Madness, but is also vulnerable to Madness."
                 data-weakness="Madness"
-                data-best-weapons='["Madness Blade", "Toxic Whip", "Madness Dagger", "Corrosive Axe"]'>
+                data-best-weapons='["Madness Blade", "Toxic Whip", "Madness Dagger", "Corrosive Axe"]'
+                 data-best-combo='[{"img":"","name":""},{"img":"","name":""},{"img":"","name":""}]'>
                 <img src="NightLords/goatboss.png" alt="Fifth" />
                 <span class="simple-grid-text">Libra, Creature of Night</span>
             </div>
@@ -172,7 +177,8 @@
                 data-description="A one-armed, masked centaur boss with a massive sword.
                  He can regrow his missing left arm. Deals Holy damage and is vulnerable to Lightning damage."
                 data-weakness="Frost"
-                data-best-weapons='["Frostbrand", "Glacial Pike", "Ice Bow", "Chill Scythe"]'>
+                data-best-weapons='["Frostbrand", "Glacial Pike", "Ice Bow", "Chill Scythe"]'
+                 data-best-combo='[{"img":"","name":""},{"img":"","name":""},{"img":"","name":""}]'>
                 <img src="NightLords/horseboss.png" alt="Sixth" />
                 <span class="simple-grid-text">Fulghor, Champion of Nightglow</span>
             </div>
@@ -188,10 +194,26 @@
             <div class="modal-weakness" id="modal-weakness"></div>
             <div class="modal-description" id="modal-description"></div>
             <div class="modal-best-weapons" id="modal-best-weapons"></div>
+            <div class="modal-best-combo" id="modal-best-combo"></div>
         </div>
     </div>
 
     <script>
+    // Example heroes array (simulate loading from a file)
+    const heroes = [
+        { img: "Heroes/GUARDIAN.png", name: "GUARDIAN", rate: 32 },
+        { img: "Heroes/WYLDER.png", name: "WYLDER", rate: 28 },
+        { img: "Heroes/IRONEYE.png", name: "IRONEYE", rate: 25 },
+        { img: "Heroes/DUCHESS.png", name: "DUCHESS", rate: 22 },
+        { img: "Heroes/RECLUSE.png", name: "RECLUSE", rate: 18 },
+        { img: "Heroes/REVENANT.png", name: "REVENANT", rate: 15 }
+    ];
+
+    // Helper to get hero by name or img
+    function findHeroByNameOrImg(name, img) {
+        return heroes.find(h => h.name === name || h.img === img) || { rate: 0 };
+    }
+
     // Modal logic for grid items
     document.querySelectorAll('.simple-grid-item').forEach(item => {
         item.addEventListener('click', function() {
@@ -200,6 +222,7 @@
             const description = this.getAttribute('data-description');
             const weakness = this.getAttribute('data-weakness');
             const bestWeapons = this.getAttribute('data-best-weapons');
+            const bestCombo = this.getAttribute('data-best-combo');
             document.getElementById('modal-img').src = img.src;
             document.getElementById('modal-img').alt = img.alt;
             document.getElementById('modal-title').textContent = title;
@@ -220,24 +243,106 @@
             }
             document.getElementById('modal-best-weapons').innerHTML = weaponsHtml;
 
+            // Render best combo as a grid of 3 images with names, percentages, and selection logic
+            let comboHtml = '';
+            let comboSum = 0;
+            let comboRates = [];
+            try {
+                const combos = JSON.parse(bestCombo);
+                comboHtml = `<div class="modal-label" style="margin-top:18px;">Select Combo:</div>
+                    <div class="modal-best-combo-grid">
+                        ${combos.map((c, idx) => {
+                            const hero = findHeroByNameOrImg(c.name, c.img);
+                            comboRates[idx] = hero.rate || 0;
+                            return `
+                            <div class="modal-combo-item" data-hero-index="${idx}" tabindex="0" style="position:relative;">
+                                <div class="combo-dropdown" style="display:none; position:absolute; bottom:100%; left:0; z-index:10;"></div>
+                                <img src="${c.img}" alt="${c.name}" class="modal-combo-img"/>
+                                <div class="modal-combo-name">${c.name} <span class="combo-rate">${hero.rate ? hero.rate + '%' : ''}</span></div>
+                            </div>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div class="combo-success-rate">
+                        <span class="modal-label">Combo Success Rate:</span>
+                        <span id="combo-success-value">${comboRates.reduce((a, b) => a + b, 0)}%</span>
+                    </div>
+                `;
+            } catch {
+                comboHtml = '';
+            }
+            document.getElementById('modal-best-combo').innerHTML = comboHtml;
+
+            // Add selection logic for combo heroes and dropdown
+            const comboItems = document.querySelectorAll('.modal-combo-item');
+            comboItems.forEach(item => {
+                item.onclick = function(e) {
+                    e.stopPropagation();
+                    document.querySelectorAll('.combo-dropdown').forEach(dd => dd.style.display = 'none');
+                    const dropdown = this.querySelector('.combo-dropdown');
+                    dropdown.innerHTML = heroes.map(hero =>
+                        `<div class="combo-dropdown-item" data-img="${hero.img}" data-name="${hero.name}" data-rate="${hero.rate}">
+                            <img src="${hero.img}" style="width:32px;height:32px;object-fit:contain;vertical-align:middle;border-radius:6px;margin-right:8px;">
+                            <span>${hero.name}</span>
+                            <span style="margin-left:auto;color:#b7a46f;">${hero.rate}%</span>
+                        </div>`
+                    ).join('');
+                    dropdown.style.display = 'block';
+
+                    // Dropdown item click
+                    dropdown.querySelectorAll('.combo-dropdown-item').forEach(ddItem => {
+                        ddItem.onclick = ev => {
+                            ev.stopPropagation();
+                            // Update image, name, and rate
+                            const imgEl = item.querySelector('.modal-combo-img');
+                            const nameEl = item.querySelector('.modal-combo-name');
+                            const rate = parseInt(ddItem.getAttribute('data-rate')) || 0;
+                            imgEl.src = ddItem.getAttribute('data-img');
+                            imgEl.alt = ddItem.getAttribute('data-name');
+                            nameEl.innerHTML = `${ddItem.getAttribute('data-name')} <span class="combo-rate">${rate ? rate + '%' : ''}</span>`;
+                            dropdown.style.display = 'none';
+
+                            // Update the combo success rate
+                            const allItems = Array.from(document.querySelectorAll('.modal-combo-item'));
+                            let sum = 0;
+                            allItems.forEach(ci => {
+                                const n = ci.querySelector('.modal-combo-name').childNodes[0].textContent.trim();
+                                const i = ci.querySelector('.modal-combo-img').getAttribute('src');
+                                const hero = findHeroByNameOrImg(n, i);
+                                sum += hero.rate || 0;
+                            });
+                            document.getElementById('combo-success-value').textContent = sum + '%';
+                        };
+                    });
+                };
+            });
+
+            // Hide dropdown if clicking outside
+            document.addEventListener('click', function hideDropdowns(e) {
+                document.querySelectorAll('.combo-dropdown').forEach(dd => dd.style.display = 'none');
+                document.removeEventListener('click', hideDropdowns);
+            });
+
+            // Highlight the selected grid item
+            document.querySelectorAll('.simple-grid-item').forEach(i => i.classList.remove('selected'));
+            this.classList.add('selected');
+
             document.getElementById('modal-overlay').style.display = 'flex';
         });
     });
 
+    // Modal close logic
     document.getElementById('modal-close').onclick = function() {
         document.getElementById('modal-overlay').style.display = 'none';
     };
-
-    // Optional: Close modal when clicking outside content
     document.getElementById('modal-overlay').onclick = function(e) {
         if (e.target === this) {
             this.style.display = 'none';
         }
     };
-    </script>
-
+</script>
     <footer class="elden-footer">
-        <p>&copy; 2025 Nightreign Quest Log &mdash; Inspired by Elden Ring: Nightreign</p>
+        &copy; 2025 Nightreign Quest Log. Inspired by Elden Ring.
     </footer>
 </body>
 </html>
