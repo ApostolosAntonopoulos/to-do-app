@@ -432,18 +432,14 @@ body {
     height: 130px;
     cursor: pointer;
     transition: box-shadow 0.2s, border 0.2s, background 0.2s;
+    border-radius: 10px; /* Ensure border-radius is set */
 }
 
 .modal-combo-item:hover {
     box-shadow: 0 4px 24px #e6c97b99, 0 0 0 4px #e6c97b55;
     filter: brightness(1.08);
     transform: translateY(-6px) scale(1.03);
-}
-
-.modal-combo-item.selected {
-    border: 2px solid #e6c97b;
-    box-shadow: 0 0 16px #e6c97b, 0 0 8px #3a2e13;
-    background: #23231a;
+    border-radius: 10px; /* Match border-radius on hover */
 }
 
 .modal-combo-img {
